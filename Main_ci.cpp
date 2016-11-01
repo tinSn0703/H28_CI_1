@@ -36,46 +36,30 @@ int main(void)
 		
 		_btn_dip.In();
 		
-		if (_nf_link0)	__HIGH_LED4__;
-		if (_nf_link1)	__HIGH_LED6__;
-		
-		if (_btn_dip.Ret_btn_0() & ~_btn_dip.Ret_btn_1())
+		if (_nf_link0)
 		{
-			if (_nf_link0)
-			{
-				F_Uart_in_bt_rx_ci(_uart_r_bt_rx0, _data_in_bt_rx0);
-				F_Uart_out_main_ci(_uart_t_main, _data_in_bt_rx0);
-				
-				__HIGH_LED5__;
-				
-				if (_nf_link1)	F_Uart_in_bt_rx_ci(_uart_r_bt_rx1, _data_in_bt_rx1);
-			}
-			else if (_nf_link1)
-			{
-				F_Uart_in_bt_rx_ci(_uart_r_bt_rx1, _data_in_bt_rx1);
-				F_Uart_out_main_ci(_uart_t_main, _data_in_bt_rx1);
-				
-				__HIGH_LED7__;
-			}
-			else
-			{
-				F_Uart_out_main_ci(_uart_t_main, _temp_data);
-			}
+			F_Uart_in_bt_rx_ci(_uart_r_bt_rx0, _data_in_bt_rx0);
+			
+			__HIGH_LED4__;
 		}
-		else if (_btn_dip.Ret_btn_1() & ~_btn_dip.Ret_btn_0())
+		
+		if (_nf_link1)
+		{
+			F_Uart_in_bt_rx_ci(_uart_r_bt_rx1, _data_in_bt_rx1);
+			
+			__HIGH_LED6__;
+		}
+		
+		if (_btn_dip.Ret_btn_1() & ~_btn_dip.Ret_btn_0())
 		{
 			if (_nf_link1)
 			{
-				F_Uart_in_bt_rx_ci(_uart_r_bt_rx1, _data_in_bt_rx1);
 				F_Uart_out_main_ci(_uart_t_main, _data_in_bt_rx1);
 				
 				__HIGH_LED7__;
-				
-				if (_nf_link1)	F_Uart_in_bt_rx_ci(_uart_r_bt_rx0, _data_in_bt_rx0);
 			}
 			else if (_nf_link0)
 			{
-				F_Uart_in_bt_rx_ci(_uart_r_bt_rx0, _data_in_bt_rx0);
 				F_Uart_out_main_ci(_uart_t_main, _data_in_bt_rx0);
 				
 				__HIGH_LED5__;
@@ -89,16 +73,12 @@ int main(void)
 		{
 			if (_nf_link0)
 			{
-				F_Uart_in_bt_rx_ci(_uart_r_bt_rx0, _data_in_bt_rx0);
 				F_Uart_out_main_ci(_uart_t_main, _data_in_bt_rx0);
 				
 				__HIGH_LED5__;
-				
-				if (_nf_link1)	F_Uart_in_bt_rx_ci(_uart_r_bt_rx1, _data_in_bt_rx1);
 			}
 			else if (_nf_link1)
 			{
-				F_Uart_in_bt_rx_ci(_uart_r_bt_rx1, _data_in_bt_rx1);
 				F_Uart_out_main_ci(_uart_t_main, _data_in_bt_rx1);
 				
 				__HIGH_LED7__;
