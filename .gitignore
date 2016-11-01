@@ -45,3 +45,16 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.eep
+Debug/H28_CI_1.elf
+*.hex
+*.map
+Debug/H28_CI_1.srec
+*.d
+Debug/main.o
+*.o
+Debug/makedep.mk
+*.lss
+Debug/Makefile
+*.xml
+H28_CI_1.cppproj
