@@ -18,7 +18,7 @@ int main(void)
 	
 	U_BTN_CI _btn_dip;
 	
-	const T_DATA_8 _temp_data[4] = {0x3f, 0x7f, 0x8f, 0xc0};
+	const T_DATA_8 _temp_data[__NUM_DATA__] = {0x3f, 0x7f, 0x8f, 0xc0};
 	
 	F_Set_wdt_ci();
 	
@@ -28,8 +28,8 @@ int main(void)
     {
 		__LOW_LED(0xff);
 		
-		T_DATA_8 _data_in_bt_rx0[4] = {};
-		T_DATA_8 _data_in_bt_rx1[4] = {};
+		T_DATA_8 _data_in_bt_rx0[__NUM_DATA__] = {};
+		T_DATA_8 _data_in_bt_rx1[__NUM_DATA__] = {};
 		
 		const BOOL _nf_link0 = __READ_LINK0__;
 		const BOOL _nf_link1 = __READ_LINK1__;
@@ -51,6 +51,7 @@ int main(void)
 		}
 		
 		if (_btn_dip.Ret_btn_1() & ~_btn_dip.Ret_btn_0())
+		//LINK1 優先
 		{
 			if (_nf_link1)
 			{
@@ -70,6 +71,7 @@ int main(void)
 			}
 		}
 		else
+		//LINK0 優先
 		{
 			if (_nf_link0)
 			{
@@ -90,6 +92,7 @@ int main(void)
 		}
 		
 		if (_btn_dip.Ret_btn_2() & _btn_dip.Ret_btn_3())
+		//BT0,BT1 接続状況
 		{
 			if (_nf_link0)	Lcd_put_str(0x00, "BT_0 Connect    ");
 			else			Lcd_put_str(0x00, "BT_0 Disconnect ");
@@ -100,13 +103,14 @@ int main(void)
 			__HIGH_LED2__;	__HIGH_LED3__;
 		}
 		else if (_btn_dip.Ret_btn_2() & ~_btn_dip.Ret_btn_3())
+		//BT1 接続、データ
 		{
 			if (_nf_link1)	Lcd_put_str(0x00, "BT_1 Connect    ");
 			else			Lcd_put_str(0x00, "BT_1 Disconnect ");
 			
 			Lcd_put_str(0x40, "DATA xx xx xx xx");
 			
-			for (usint i = 0; i < 4; i ++)
+			for (usint i = 0; i < __NUM_DATA__; i ++)
 			{
 				Lcd_put_num(0x45 + i * 3, _data_in_bt_rx1[i], 2, ED_16);
 			}
@@ -114,13 +118,14 @@ int main(void)
 			__HIGH_LED2__;
 		}
 		else if (~_btn_dip.Ret_btn_2() & _btn_dip.Ret_btn_3())
+		//BT0 接続、データ
 		{
 			if (_nf_link0)	Lcd_put_str(0x00, "BT_0 Connect    ");
 			else			Lcd_put_str(0x00, "BT_0 Disconnect ");
 			
 			Lcd_put_str(0x40, "DATA xx xx xx xx");
 			
-			for (usint i = 0; i < 4; i ++)
+			for (usint i = 0; i < __NUM_DATA__; i ++)
 			{
 				Lcd_put_num(0x45 + i * 3, _data_in_bt_rx0[i], 2, ED_16);
 			}
@@ -128,11 +133,12 @@ int main(void)
 			__HIGH_LED3__;
 		}
 		else
+		//BT0,BT1 データ
 		{
 			Lcd_put_str(0x00, "BT_0 xx xx xx xx");
 			Lcd_put_str(0x40, "BT_1 xx xx xx xx");
 			
-			for (usint i = 0; i < 4; i ++)
+			for (usint i = 0; i < __NUM_DATA__; i ++)
 			{
 				Lcd_put_num(0x05 + i * 3, _data_in_bt_rx0[i], 2, ED_16);
 				Lcd_put_num(0x45 + i * 3, _data_in_bt_rx1[i], 2, ED_16);

@@ -11,6 +11,8 @@
 
 /************************************************************************/
 
+#define __NUM_DATA__ 4
+
 #define __LED0__ PA0 //DIP_SW 0 ON/OFF
 #define __LED1__ PA1 //DIP_SW 1 ON/OFF
 #define __LED2__ PA2 //DIP_SW 2 ON/OFF
@@ -69,6 +71,9 @@
 
 /************************************************************************/
 
+/*
+	DIPスイッチを読み取るための共用体
+*/
 union U_BTN_CI
 {
 	
@@ -116,13 +121,35 @@ public:
 
 /************************************************************************/
 
+/**
+ * \brief 
+ *	IOレジスタの設定を行う
+ */
 void F_Set_io_ci();
 
+/**
+ * \brief 
+ *	ウォッチドックタイマの設定を行う
+ */
 void F_Set_wdt_ci();
 
-void F_Uart_in_bt_rx_ci(C_UART_R &_arg_uart_r, char _arg_re_data_in[4]);
+/**
+ * \brief 
+ *	BT_RXからの受信を行う 
+ *
+ * \param _arg_uart_r		: 受信するUART
+ * \param _arg_re_data_in	: 受信したデータが格納される場所
+ */
+void F_Uart_in_bt_rx_ci(C_UART_R &_arg_uart_r, char _arg_re_data_in[__NUM_DATA__]);
 
-void F_Uart_out_main_ci(C_UART_T &_arg_uart_t, const char _arg_data_out[4]);
+/**
+ * \brief 
+ *	 メイン回路への送信を行う
+ *
+ * \param _arg_uart_t	: 送信するUART
+ * \param _arg_data_out	: 送信するデータ
+ */
+void F_Uart_out_main_ci(C_UART_T &_arg_uart_t, const char _arg_data_out[__NUM_DATA__]);
 
 /************************************************************************/
 

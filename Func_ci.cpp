@@ -49,7 +49,7 @@ void
 F_Uart_in_bt_rx_ci
 (
 	C_UART_R &_arg_uart_r, 
-	T_DATA_8 _arg_re_data_in[4]
+	T_DATA_8  _arg_re_data_in[__NUM_DATA__]
 )
 {
 	wdt_reset();
@@ -74,11 +74,11 @@ F_Uart_in_bt_rx_ci
 void 
 F_Uart_out_main_ci
 (
-	C_UART_T &_arg_uart_t, 
-	const T_DATA_8 _arg_data_out[4]
+	C_UART_T		&_arg_uart_t, 
+	const T_DATA_8	 _arg_data_out[__NUM_DATA__]
 )
 {
-	for (usint i = 0; i < 4; i++)
+	for (usint i = 0; i < __NUM_DATA__; i++)
 	{
 		wdt_reset();
 		
