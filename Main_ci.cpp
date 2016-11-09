@@ -25,9 +25,7 @@ int main(void)
 	INI_LCD();
 	
     while (1) 
-    {
-		__LOW_LED(0xff);
-		
+    {		
 		T_DATA_8 _data_in_bt_rx0[__NUM_DATA__] = {};
 		T_DATA_8 _data_in_bt_rx1[__NUM_DATA__] = {};
 		
@@ -35,6 +33,8 @@ int main(void)
 		const BOOL _nf_link1 = __READ_LINK1__;
 		
 		_btn_dip.In();
+		
+		__LOW_LED4__;	__LOW_LED6__;
 		
 		if (_nf_link0)
 		{
@@ -49,6 +49,8 @@ int main(void)
 			
 			__HIGH_LED6__;
 		}
+		
+		__LOW_LED5__;	__LOW_LED7__;
 		
 		if (_btn_dip.Ret_btn_1() & ~_btn_dip.Ret_btn_0())
 		//LINK1 óDêÊ
@@ -90,6 +92,8 @@ int main(void)
 				F_Uart_out_main_ci(_uart_t_main, _temp_data);
 			}
 		}
+		
+		__LOW_LED2__;	__LOW_LED3__;
 		
 		if (_btn_dip.Ret_btn_2() & _btn_dip.Ret_btn_3())
 		//BT0,BT1 ê⁄ë±èÛãµ
