@@ -109,8 +109,31 @@ int main(void)
 		else if (_btn_dip.Ret_btn_2() & ~_btn_dip.Ret_btn_3())
 		//BT1 接続、データ
 		{
-			if (_nf_link1)	Lcd_put_str(0x00, "BT_1 Connect    ");
-			else			Lcd_put_str(0x00, "BT_1 Disconnect ");
+			static BOOL _sta_flag_link_1 = TRUE;
+			
+			static usint _count_link_1 = 0;
+			
+			if (_nf_link1)
+			{
+				if (_sta_flag_link_1)
+				{
+					_count_link_1 ++;
+					
+					_sta_flag_link_1 = FALSE;
+				}
+				
+				Lcd_put_str(0x00, "BT_1 Connect    ");
+				
+				Lcd_put_num(0x0d, _count_link_1, 1, ED_10);
+			}
+			else
+			{
+				_sta_flag_link_1 = TRUE;
+				
+				Lcd_put_str(0x00, "BT_1 Disconnect ");
+				
+				Lcd_put_num(0x0f, _count_link_1, 1, ED_10);
+			}
 			
 			Lcd_put_str(0x40, "DATA xx xx xx xx");
 			
@@ -124,8 +147,31 @@ int main(void)
 		else if (~_btn_dip.Ret_btn_2() & _btn_dip.Ret_btn_3())
 		//BT0 接続、データ
 		{
-			if (_nf_link0)	Lcd_put_str(0x00, "BT_0 Connect    ");
-			else			Lcd_put_str(0x00, "BT_0 Disconnect ");
+			static BOOL _sta_flag_link_0 = TRUE;
+			
+			static usint _count_link_0 = 0;
+			
+			if (_nf_link0)
+			{
+				if (_sta_flag_link_0)
+				{
+					_count_link_0 ++;
+					
+					_sta_flag_link_0 = FALSE;
+				}
+				
+				Lcd_put_str(0x00, "BT_0 Connect    ");
+				
+				Lcd_put_num(0x0d, _count_link_0, 1, ED_10);
+			}
+			else
+			{
+				_sta_flag_link_0 = TRUE;
+				
+				Lcd_put_str(0x00, "BT_0 Disconnect ");
+				
+				Lcd_put_num(0x0f, _count_link_0, 1, ED_10);
+			}
 			
 			Lcd_put_str(0x40, "DATA xx xx xx xx");
 			
@@ -149,7 +195,7 @@ int main(void)
 			}
 		}
 		
-		if ((_nf_link0 | _nf_link1) == FALSE)	_delay_ms(100);
+		if ((_nf_link0 | _nf_link1) == FALSE)	_delay_ms(100);				
 	}
 	
 	return 0;
